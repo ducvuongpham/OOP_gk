@@ -19,6 +19,7 @@ import backEnd.StoreGraph;
 class MenuListener implements ActionListener {
     public VerticalToolbar obj;
     public App ui;
+    // showMessageDialog messageDialog = new showMessageDialog();
 
     public MenuListener(VerticalToolbar obj, App ui) {
         this.obj = obj;
@@ -145,24 +146,35 @@ class MenuListener implements ActionListener {
     }
 
     private void run() {
-        String source = VerticalToolbar.getSD()[0];
-        String destination = VerticalToolbar.getSD()[1];
-        if (source.length() == 0 && destination.length() == 0) {
-            destination = StoreGraph.MainGraph.getNode(0).getId();
-            source = destination;
-            System.out.println(destination);
-            for (Node node : StoreGraph.MainGraph) {
-                if (destination.compareToIgnoreCase(node.getId()) < 0)
-                    destination = node.getId();
-                if (source.compareToIgnoreCase(node.getId()) > 0)
-                    source = node.getId();
-            }
-        }
-        FindAllPath.printAllPaths(source, destination);
+        try {
+            String[] SD = VerticalToolbar.getSD();
+            String source = SD[0];
+            String destination = SD[1];
 
-        FindAction.stopFind();
-        FindAction.isFinding = true;
-        FindAction.findNext(source);
-        FindAction.setDestination(destination);
+            if (source.length() == 0 && destination.length() == 0) {
+                destination = StoreGraph.MainGraph.getNode(0).getId();
+                source = destination;
+                System.out.println(destination);
+                for (Node node : StoreGraph.MainGraph) {
+                    if (destination.compareToIgnoreCase(node.getId()) < 0)
+                        destination = node.getId();
+                    if (source.compareToIgnoreCase(node.getId()) > 0)
+                        source = node.getId();
+                }
+            }
+            FindAllPath.printAllPaths(source, destination);
+
+            FindAction.stopFind();
+            FindAction.isFinding = true;
+            FindAction.findNext(source);
+            System.out.println(FindAction.PathLists.toString());
+            // App app = new App();
+            App.showWaysPath.setText(FindAction.PathLists.toString());
+            FindAction.setDestination(destination);
+        } catch (Exception e) {
+            // showMessageDialog.showMessage("Node not found");
+            obj.deleteText();
+        }
+
     }
 }

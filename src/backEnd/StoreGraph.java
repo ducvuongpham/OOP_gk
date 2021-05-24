@@ -16,8 +16,7 @@ public final class StoreGraph {
         MainGraph.setAttribute("ui.quality");
         MainGraph.setAttribute("ui.antialias");
         MainGraph.setAttribute("ui.stylesheet",
-                "url(https://raw.githubusercontent.com/ducvuongpham/OOP_gk/master/styling.css)");
-
+                "url(https://raw.githubusercontent.com/ducvuongpham/OOP_gk/ForTesting/styling.css)");
         System.gc();
     }
 
