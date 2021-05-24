@@ -7,9 +7,9 @@ public class MenuBar extends JMenuBar {
     public MenuBar(MenuListener menuItemListener) {
         String prefix = new String();
         if (System.getProperty("os.name").equals("Linux"))
-            prefix = "src/images/";
+            prefix = "src/pictures/";
         else
-            prefix = "src\\images\\";
+            prefix = "src\\pictures\\";
 
         // Decalre menus
         JMenu fileMenu = new JMenu("File");
