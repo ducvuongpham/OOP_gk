@@ -2,6 +2,8 @@ package App;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import org.graphstream.graph.Graph;
 import org.graphstream.ui.view.Viewer;
@@ -24,9 +26,12 @@ public class App implements ViewerListener {
     protected boolean loop = true;
     JFrame frame;
     public JPanel mainpanel;
+    JPanel body;
+    public static JPanel waysPath;
+    public static JTextArea showWaysPath;
     ViewPanel viewPanel;
     ViewerPipe fromViewer;
-
+    public App(){}
     public static void main(String args[]) {
         StoreGraph.create("graph.txt");
         new App(StoreGraph.getGraph());
@@ -34,7 +39,11 @@ public class App implements ViewerListener {
 
     public App(Graph graph) {
         mainpanel = new JPanel();
+        body = new JPanel();
+        waysPath = new JPanel();
+        showWaysPath = new JTextArea();
         frame = new AppUI(this);
+
         loadGraph(graph);
         while (loop) {
             fromViewer.pump();
@@ -42,6 +51,26 @@ public class App implements ViewerListener {
     }
 
     public void loadGraph(Graph graph) {
+        // create body
+        body.setLayout(new java.awt.BorderLayout());
+        body.add(mainpanel,BorderLayout.CENTER);
+        mainpanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Graph", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Times New Roman", 1, 14))); 
+
+        waysPath.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ways", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Times New Roman", 1, 14))); 
+        waysPath.setPreferredSize(new java.awt.Dimension(0, 155));
+        waysPath.setLayout(new BorderLayout());
+        waysPath.add(showWaysPath,BorderLayout.CENTER);
+        showWaysPath.setColumns(65);
+        showWaysPath.setRows(7);
+        showWaysPath.setMargin(new Insets(50,2,2,2));
+        showWaysPath.setFont(new java.awt.Font("Times New Roman", 0, 14));
+        // waysPath.setViewportView(showWaysPath);
+        // showWaysPath.setPreferredSize(new java.awt.Dimension(0, 155));
+        body.add(waysPath,BorderLayout.SOUTH);
+
+
+    
+
         if (viewPanel != null)
             mainpanel.remove(viewPanel);
         Viewer viewer;
@@ -60,7 +89,7 @@ public class App implements ViewerListener {
         mainpanel.add(viewPanel);
         mainpanel.setLayout(new GridLayout());
 
-        frame.add(mainpanel);
+        frame.add(body);
 
         fromViewer = viewer.newViewerPipe();
         fromViewer.addViewerListener(this);
