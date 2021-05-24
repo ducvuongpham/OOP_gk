@@ -1,28 +1,30 @@
 node {
-  shape: box;
-  /*fill-mode: plain;  Default.          */
-  fill-color: white; /* Default is black. */
+  size: 50px;
   text-size: 20;
-  text-alignment: center;
-  stroke-mode: plain; /* Default is none.  */
-  stroke-color: blue; /* Default is black. */
-  size-mode: fit;
-  text-padding: 50;
-  padding: 10;
+  fill-color: aquamarine, #254;
+  fill-mode: gradient-diagonal1;
 }
 
 node.marked {
-  fill-color: red;
+  fill-color: red, rgb(250, 144, 57);
+  fill-mode: gradient-diagonal1;
 }
 node.dekiru {
-  fill-color: green;
+  fill-color: green, rgb(153, 233, 78);
+  fill-mode: gradient-diagonal1;
 }
 
 edge.marked {
   fill-color: red;
-  size: 10;
+  size: 5;
+  arrow-size: 7;
 }
 
 edge.dekiru {
   fill-color: green;
+}
+
+edge {
+  size: 1;
+  arrow-size: 5;
 }
