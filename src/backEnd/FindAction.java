@@ -44,25 +44,18 @@ public class FindAction {
             return;
 
         step++;
-        // for (ArrayList<String> arrayList : PathLists) {
-        //     if (step < arrayList.size() && arrayList.get(step - 1).equals(currentNode)) {
-        //         StoreGraph.getGraph().getNode(arrayList.get(step)).setAttribute("ui.class", "dekiru");
-        //     }
-        // }
-        
-        for(Node n : StoreGraph.getAdjacency(currentNode)) {// node 2 chieu cung co the dekiru
-            if(StoreGraph.getAdjacency(n).contains(StoreGraph.MainGraph.getNode(currentNode)))
-            StoreGraph.getGraph().getNode(n.getId()).setAttribute("ui.class", "dekiru");
-            
+        for (Node n : StoreGraph.getAdjacency(StoreGraph.getGraph().getNode(currentNode))) {// node 2 chieu cung co the
+                                                                                            // dekiru
+            if (StoreGraph.getAdjacency(n).contains(StoreGraph.MainGraph.getNode(currentNode)))
+                StoreGraph.getGraph().getNode(n.getId()).setAttribute("ui.class", "dekiru");
+
         }
 
-  
-        for (ArrayList<String> arrayList : PathLists) {
-            for(int i = 0; i < arrayList.size(); i++){
-                if(arrayList.get(i) == currentNode) {
-                    int k = i+1;
-                    StoreGraph.
-                    getGraph().getNode(arrayList.get(k)).setAttribute("ui.class", "dekiru");
+        for (ArrayList<Node> arrayList : PathLists) {
+            for (int i = 0; i < arrayList.size(); i++) {
+                if (arrayList.get(i).getId().equals(currentNode)) {
+                    int k = i + 1;
+                    StoreGraph.getGraph().getNode(arrayList.get(k).getId()).setAttribute("ui.class", "dekiru");
                 }
 
             }
