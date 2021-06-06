@@ -29,6 +29,8 @@ public class VerticalToolbar extends JToolBar {
         JButton execButton = new JButton("Run");
 
         execButton.setActionCommand("run");
+        JButton resetButton = new JButton("Reset");
+        resetButton.setActionCommand("reset");
         // Add components
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -58,6 +60,13 @@ public class VerticalToolbar extends JToolBar {
         gbc.gridwidth = 2;
         execButton.addActionListener(menulistener);
         add(execButton, gbc);
+        gbc.weighty = 10;
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        // gbc.gridwidth = 2;
+        resetButton.addActionListener(menulistener);
+        add(resetButton, gbc);
+        
     }
 
     public static void deleteText() {
