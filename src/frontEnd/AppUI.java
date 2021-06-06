@@ -20,6 +20,9 @@ public class AppUI extends JFrame {
         VerticalToolbar verticalToolbar = new VerticalToolbar(menuListener);
         menuListener.obj = verticalToolbar;
         add(verticalToolbar, BorderLayout.WEST);
+
+        // Body body = new Body();
+        // add(body);
         setSize(1000, 800);
         setTitle("OOP GK");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

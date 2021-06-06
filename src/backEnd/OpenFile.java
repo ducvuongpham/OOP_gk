@@ -24,7 +24,7 @@ public class OpenFile {
                 for (int i = 1; i < word.length; i++) {
                     if (word[0].equals(word[i]) == false) {
                         // graph.addNode(word[i]);
-                        edges = word[0] + word[i];
+                        edges = word[0] + " " + word[i];
                         graph.addEdge(edges, word[0], word[i], true);
                     }
                 }

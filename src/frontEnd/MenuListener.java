@@ -18,12 +18,12 @@ import backEnd.StoreGraph;
 
 class MenuListener implements ActionListener {
     public VerticalToolbar obj;
-    public App ui;
+    public App app;
     // showMessageDialog messageDialog = new showMessageDialog();
 
-    public MenuListener(VerticalToolbar obj, App ui) {
+    public MenuListener(VerticalToolbar obj, App app) {
         this.obj = obj;
-        this.ui = ui;
+        this.app = app;
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -90,7 +90,7 @@ class MenuListener implements ActionListener {
             if (StoreGraph.getGraph() == null)
                 return;
 
-            ((App) ui).loadGraph(StoreGraph.getGraph());
+            ((App) app).loadGraph(StoreGraph.getGraph());
             FindAction.stopFind();
         }
 
@@ -113,10 +113,10 @@ class MenuListener implements ActionListener {
         System.out.println(fileChooser.getSelectedFile().getName());
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            BufferedImage image = new BufferedImage(((App) ui).mainpanel.getWidth(), ((App) ui).mainpanel.getHeight(),
+            BufferedImage image = new BufferedImage(((App) app).mainpanel.getWidth(), ((App) app).mainpanel.getHeight(),
                     BufferedImage.TYPE_INT_RGB);
             Graphics2D g2 = image.createGraphics();
-            ((App) ui).mainpanel.paint(g2);
+            ((App) app).mainpanel.paint(g2);
             try {
                 ImageIO.write(image, "png", new File(selectedFile.getAbsolutePath() + ".png"));
             } catch (Exception e) {
@@ -167,13 +167,13 @@ class MenuListener implements ActionListener {
             FindAction.stopFind();
             FindAction.isFinding = true;
             FindAction.findNext(source);
-            System.out.println(FindAction.PathLists.toString());
+            // System.out.println(FindAction.PathLists.toString());
             // App app = new App();
             App.showWaysPath.setText(FindAction.PathLists.toString());
             FindAction.setDestination(destination);
         } catch (Exception e) {
             // showMessageDialog.showMessage("Node not found");
-            obj.deleteText();
+            VerticalToolbar.deleteText();
         }
 
     }

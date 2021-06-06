@@ -27,6 +27,7 @@ public class VerticalToolbar extends JToolBar {
         JLabel dNodeLabel = new JLabel("Destination Node:  ");
 
         JButton execButton = new JButton("Run");
+
         execButton.setActionCommand("run");
         // Add components
         GridBagConstraints gbc = new GridBagConstraints();
@@ -42,6 +43,7 @@ public class VerticalToolbar extends JToolBar {
         gbc.gridy = 0;
         add(sNodeText, gbc);
 
+        gbc.weighty = 0.4;
         gbc.gridx = 0;
         gbc.gridy = 1;
         add(dNodeLabel, gbc);
@@ -50,7 +52,7 @@ public class VerticalToolbar extends JToolBar {
         gbc.gridy = 1;
         add(dNodeText, gbc);
 
-        gbc.weighty = 10;
+        gbc.weighty = 0.4;
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;

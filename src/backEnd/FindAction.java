@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.graphstream.graph.Node;
 
 public class FindAction {
-    public static ArrayList<ArrayList<String>> PathLists;
+    public static ArrayList<ArrayList<Node>> PathLists;
     public static boolean isFinding;
     private static int step = 0;
 
@@ -34,17 +34,16 @@ public class FindAction {
         StoreGraph.getGraph().getNode(currentNode).setAttribute("marked", "marked");
 
         if (pastNode != null) {
-
-            StoreGraph.getGraph().getEdge(pastNode + currentNode).setAttribute("ui.class", "marked");
+            StoreGraph.getGraph().getEdge(pastNode + " " + currentNode).setAttribute("ui.class", "marked");
         }
 
         if (currentNode.equals(destination))
             return;
 
         step++;
-        for (ArrayList<String> arrayList : PathLists) {
-            if (step < arrayList.size() && arrayList.get(step - 1).equals(currentNode)) {
-                StoreGraph.getGraph().getNode(arrayList.get(step)).setAttribute("ui.class", "dekiru");
+        for (ArrayList<Node> arrayList : PathLists) {
+            if (step < arrayList.size() && arrayList.get(step - 1).getId().equals(currentNode)) {
+                arrayList.get(step).setAttribute("ui.class", "dekiru");
             }
         }
 
