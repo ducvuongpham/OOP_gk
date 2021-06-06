@@ -76,6 +76,9 @@ class MenuListener implements ActionListener {
             case "run":
                 run();
                 break;
+                case "reset":
+                reset();
+                break;
         }
     }
 
@@ -176,5 +179,11 @@ class MenuListener implements ActionListener {
             obj.deleteText();
         }
 
+    }
+    private void reset() {
+        FindAction.stopFind();
+        VerticalToolbar.sNodeText.setText("");
+        VerticalToolbar.dNodeText.setText("");
+        App.showWaysPath.setText("");
     }
 }
