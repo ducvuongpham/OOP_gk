@@ -50,6 +50,7 @@ public class FindAction {
         //         StoreGraph.getGraph().getNode(arrayList.get(step)).setAttribute("ui.class", "dekiru");
         //     }
         // }
+        
         for(Node n : StoreGraph.getAdjacency(currentNode)) {// node 2 chieu cung co the dekiru
             if(StoreGraph.getAdjacency(n).contains(StoreGraph.MainGraph.getNode(currentNode)))
             StoreGraph.getGraph().getNode(n.getId()).setAttribute("ui.class", "dekiru");
