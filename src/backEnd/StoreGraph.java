@@ -44,8 +44,14 @@ public final class StoreGraph {
         return returnEdges;
     }
 
-    public static List<Node> getAdjacency(String node) {
-        return getAdjacency(MainGraph.getNode(node));
+    public static List<String> getAdjacency(String node) {
+        // return getAdjacency(MainGraph.getNode(node)).toString();
+        List<Node> nodes = getAdjacency(MainGraph.getNode(node));
+        List<String> listnodes = new ArrayList<>();
+        for (Node temp : nodes) {
+            listnodes.add(temp.toString());
+        }
+        return listnodes;
     }
 
 }

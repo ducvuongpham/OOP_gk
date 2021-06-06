@@ -7,7 +7,7 @@ import org.graphstream.graph.Node;
 import frontEnd.VerticalToolbar;
 
 public class FindAction {
-    public static ArrayList<ArrayList<String>> PathLists;
+    public static ArrayList<ArrayList<Node>> PathLists;
     public static boolean isFinding;
     private static int step = 0;
 
@@ -37,8 +37,7 @@ public class FindAction {
         StoreGraph.getGraph().getNode(currentNode).setAttribute("marked", "marked");
 
         if (pastNode != null) {
-
-            StoreGraph.getGraph().getEdge(pastNode + currentNode).setAttribute("ui.class", "marked");
+            StoreGraph.getGraph().getEdge(pastNode + " " + currentNode).setAttribute("ui.class", "marked");
         }
 
         if (currentNode.equals(destination))
@@ -65,6 +64,7 @@ public class FindAction {
                     StoreGraph.
                     getGraph().getNode(arrayList.get(k)).setAttribute("ui.class", "dekiru");
                 }
+
             }
         }
 
