@@ -1,6 +1,9 @@
 package backEnd;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 import org.graphstream.graph.Node;
 
@@ -10,33 +13,56 @@ public class FindAllPath {
             FindAction.PathLists.clear();
         System.gc();
 
-        FindAction.PathLists = new ArrayList<ArrayList<String>>();
+        FindAction.PathLists = new ArrayList<ArrayList<Node>>();
         for (Node node : StoreGraph.MainGraph) {
             node.removeAttribute("isVisited");
         }
-        ArrayList<String> pathList = new ArrayList<>();
-        pathList.add(s);
 
-        printAllPathsUtil(s, d, pathList);
+        printAllPathsUtil(s, d);
         System.out.println("\nAll printed! :D");
         System.out.println("\n\n");
     }
 
-    private static ArrayList<ArrayList<String>> printAllPathsUtil(String u, String d, ArrayList<String> localPathList) {
-        if (u.equals(d)) {
-            FindAction.PathLists.add((ArrayList<String>) localPathList.clone());
-            return FindAction.PathLists;
-        }
-        StoreGraph.MainGraph.getNode(u).setAttribute("isVisited", "true");
-        for (Node node : StoreGraph.getAdjacency(u)) {
-            String i = node.getId();
-            if (node.hasAttribute("isVisited") == false) {
-                localPathList.add(i);
-                printAllPathsUtil(i, d, localPathList);
-                localPathList.remove(i);
+    private static void printAllPathsUtil(String s, String d) {
+        Node source = StoreGraph.getGraph().getNode(s);
+        Node destination = StoreGraph.getGraph().getNode(d);
+
+        Queue<List<Node>> queue = new LinkedList<>();
+        List<Node> path = new ArrayList<>();
+        path.add(source);
+        queue.offer(path);
+        while (!queue.isEmpty()) {
+            path = queue.poll();
+            Node last = path.get(path.size() - 1);
+            if (last.equals(destination)) {
+                printPath((ArrayList<Node>) path);
+            }
+            List<Node> lastNode = StoreGraph.getAdjacency(last);
+            for (int i = 0; i < lastNode.size(); i++) {
+                if (isNotVisited(lastNode.get(i), path)) {
+                    List<Node> newpath = new ArrayList<>(path);
+                    newpath.add(lastNode.get(i));
+                    queue.offer(newpath);
+                }
             }
         }
-        StoreGraph.MainGraph.getNode(u).removeAttribute("isVisited");
-        return FindAction.PathLists;
+    }
+
+    private static boolean isNotVisited(Node x, List<Node> path) {
+        int size = path.size();
+        for (int i = 0; i < size; i++)
+            if (path.get(i).getId().equals(x.getId()))
+                return false;
+
+        return true;
+    }
+
+    private static void printPath(ArrayList<Node> path) {
+        // FindAction.PathLists.add((ArrayList<String>) path.clone());
+        ArrayList<Node> clone = new ArrayList<>();
+        for (Node string : path) {
+            clone.add(string);
+        }
+        FindAction.PathLists.add(clone);
     }
 }
