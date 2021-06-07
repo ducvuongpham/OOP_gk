@@ -18,6 +18,7 @@ import frontEnd.AppUI;
 
 import java.awt.*;
 import java.awt.event.MouseWheelListener;
+import java.util.ArrayList;
 import java.awt.event.MouseWheelEvent;
 
 import org.graphstream.ui.swing_viewer.SwingViewer;
@@ -125,6 +126,9 @@ public class App implements ViewerListener {
             if (StoreGraph.getGraph().getNode(id).getAttribute("ui.class") != null)
                 if (StoreGraph.getGraph().getNode(id).getAttribute("ui.class").toString().equals("dekiru")) {
                     showWaysPath.append(FindAction.findNext(id) + "\n");
+                    if (FindAction.forRedo.size() != 0) {
+                        FindAction.forRedo = new ArrayList<>();
+                    }
                 }
     }
 

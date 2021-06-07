@@ -203,22 +203,39 @@ class MenuListener implements ActionListener {
     }
 
     private void redo() {
-
+        if (FindAction.forRedo.size() > 0) {
+            FindAction.findNext(FindAction.forRedo.get(FindAction.forRedo.size() - 1));
+            FindAction.forRedo.remove(FindAction.forRedo.size() - 1);
+        }
     }
 
     private void undo() {
         if (FindAction.pastNodes.size() <= 1)
             return;
         String currentNode = FindAction.pastNodes.get(FindAction.pastNodes.size() - 1);
+        String lastNode = FindAction.pastNodes.get(FindAction.pastNodes.size() - 2);
+
+        FindAction.forRedo.add(currentNode);
+
         FindAction.pastNodes.remove(FindAction.pastNodes.size() - 1);
         if (!FindAction.pastNodes.contains(currentNode)) {
             StoreGraph.getGraph().getNode(currentNode).removeAttribute("ui.class");
             StoreGraph.getGraph().getNode(currentNode).removeAttribute("marked");
         }
-        String lastNode = FindAction.pastNodes.get(FindAction.pastNodes.size() - 1);
 
-        StoreGraph.getGraph().getEdge(lastNode + " " + currentNode).removeAttribute("ui.class");
-        ;
+        // StoreGraph.getGraph().getEdge(lastNode + " " +
+        // currentNode).removeAttribute("ui.class");
+
+        int checkAlreadyHas = 0;
+        for (int i = 0; i < FindAction.pastNodes.size() - 1; i++) {
+            if (FindAction.pastNodes.get(i) == lastNode && FindAction.pastNodes.get(i + 1) == currentNode) {
+                checkAlreadyHas++;
+                break;
+            }
+        }
+        if (checkAlreadyHas == 0)
+            StoreGraph.getGraph().getEdge(lastNode + " " + currentNode).removeAttribute("ui.class");
+
         FindAction.pastNodes.remove(FindAction.pastNodes.size() - 1);
         FindAction.findNext(lastNode);
         String contents = App.showWaysPath.getText();

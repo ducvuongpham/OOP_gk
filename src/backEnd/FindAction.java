@@ -1,7 +1,6 @@
 package backEnd;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.graphstream.graph.Node;
 
@@ -11,11 +10,12 @@ public class FindAction {
     public static ArrayList<ArrayList<Node>> PathLists;
     public static boolean isFinding;
     public static ArrayList<String> pastNodes;
-    public static int countDekiru;
+    public static ArrayList<String> forRedo;
     private static String destination;
 
     public static void setDestination(String string) {
         pastNodes = new ArrayList<>();
+        forRedo = new ArrayList<>();
         destination = string;
     }
 
@@ -58,21 +58,22 @@ public class FindAction {
         for (ArrayList<Node> arrayList : PathLists) {
             for (int i = 0; i < arrayList.size(); i++) {
                 if (arrayList.get(i).getId().equals(currentNode)) {
-                    int k = i + 1;
-                    if (k < arrayList.size()) {
-                        StoreGraph.getGraph().getNode(arrayList.get(k).getId()).setAttribute("ui.class", "dekiru");
+                    if (i + 1 < arrayList.size()) {
+                        StoreGraph.getGraph().getNode(arrayList.get(i + 1).getId()).setAttribute("ui.class", "dekiru");
                     }
                 }
 
             }
         }
-        countDekiru = 0;
-        List<Node> listNodes = StoreGraph.getAdjacency(StoreGraph.getGraph().getNode(currentNode));
-        for (Node node : listNodes) {
-            if (node.getAttribute("ui.class") != null && node.getAttribute("ui.class").toString().equals("dekiru")) {
-                countDekiru++;
-            }
-        }
+        // countDekiru = 0;
+        // List<Node> listNodes =
+        // StoreGraph.getAdjacency(StoreGraph.getGraph().getNode(currentNode));
+        // for (Node node : listNodes) {
+        // if (node.getAttribute("ui.class") != null &&
+        // node.getAttribute("ui.class").toString().equals("dekiru")) {
+        // countDekiru++;
+        // }
+        // }
         pastNodes.add(currentNode);
         return currentNode;
     }
@@ -80,7 +81,7 @@ public class FindAction {
     public static void stopFind() {
         isFinding = false;
         pastNodes = null;
-        countDekiru = 0;
+        // countDekiru = 0;
         for (Node node : StoreGraph.getGraph()) {
             if (node.getAttribute("ui.class") != null)
                 node.removeAttribute("ui.class");
