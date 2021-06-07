@@ -204,7 +204,9 @@ class MenuListener implements ActionListener {
 
     private void redo() {
         if (FindAction.forRedo.size() > 0) {
-            FindAction.findNext(FindAction.forRedo.get(FindAction.forRedo.size() - 1));
+            String currentNode = FindAction.findNext(FindAction.forRedo.get(FindAction.forRedo.size() - 1));
+            App.showWaysPath.append(currentNode + "\n");
+
             FindAction.forRedo.remove(FindAction.forRedo.size() - 1);
         }
     }

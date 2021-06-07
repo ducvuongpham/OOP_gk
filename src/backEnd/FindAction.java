@@ -44,7 +44,7 @@ public class FindAction {
         }
 
         if (currentNode.equals(destination)) {
-            return currentNode + "\nDone";
+            return currentNode + "   DONE!!";
         }
 
         for (Node n : StoreGraph.getAdjacency(StoreGraph.getGraph().getNode(currentNode))) {// node 2 chieu cung co the
