@@ -27,8 +27,14 @@ public class VerticalToolbar extends JToolBar {
         JLabel dNodeLabel = new JLabel("Destination Node:  ");
 
         JButton execButton = new JButton("Run");
-
         execButton.setActionCommand("run");
+
+        JButton undoButton = new JButton("Undo");
+        undoButton.setActionCommand("undo");
+
+        JButton redoButton = new JButton("Redo");
+        redoButton.setActionCommand("redo");
+
         JButton resetButton = new JButton("Reset");
         resetButton.setActionCommand("reset");
         // Add components
@@ -54,16 +60,32 @@ public class VerticalToolbar extends JToolBar {
         gbc.gridy = 1;
         add(dNodeText, gbc);
 
-        gbc.weighty = 0.8;
+        gbc.weighty = 1;
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
         execButton.addActionListener(menulistener);
         add(execButton, gbc);
-        gbc.weighty = 10;
+
+        gbc.weightx = 0.5;
+        gbc.weighty = 0.8;
         gbc.gridx = 0;
         gbc.gridy = 3;
-        // gbc.gridwidth = 2;
+        gbc.gridwidth = 1;
+        undoButton.addActionListener(menulistener);
+        add(undoButton, gbc);
+
+        gbc.weighty = 0.8;
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        redoButton.addActionListener(menulistener);
+        add(redoButton, gbc);
+
+        gbc.weighty = 5;
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
         resetButton.addActionListener(menulistener);
         add(resetButton, gbc);
 

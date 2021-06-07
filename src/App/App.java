@@ -30,7 +30,7 @@ public class App implements ViewerListener {
     JPanel body;
     public static JPanel waysPath;
     public static JTextArea showWaysPath;
-    ViewPanel viewPanel;
+    public static ViewPanel viewPanel;
     ViewerPipe fromViewer;
 
     public App() {

@@ -1,7 +1,6 @@
 package backEnd;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.graphstream.graph.Node;
 import org.graphstream.graph.Edge;
@@ -14,7 +13,7 @@ public class FindPossible {
     public static void printPossible(Node destination) {
         FindAction.PathLists = new ArrayList<ArrayList<Node>>();
         printPossibleUtil(destination);
-        System.out.println("\n\n" + FindAction.PathLists.toString());
+        // System.out.println("\n\n" + FindAction.PathLists.toString());
     }
 
     private static void printPossibleUtil(Node destination) {

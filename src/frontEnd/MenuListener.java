@@ -77,8 +77,11 @@ class MenuListener implements ActionListener {
             case "run":
                 run();
                 break;
-            case "Undo":
-                // undo();
+            case "undo":
+                undo();
+                break;
+            case "redo":
+                redo();
                 break;
             case "reset":
                 reset();
@@ -196,5 +199,35 @@ class MenuListener implements ActionListener {
         VerticalToolbar.sNodeText.setText("");
         VerticalToolbar.dNodeText.setText("");
         App.showWaysPath.setText("");
+        App.viewPanel.getCamera().resetView();
     }
+
+    private void redo() {
+
+    }
+
+    private void undo() {
+        if (FindAction.pastNodes.size() <= 1)
+            return;
+        String currentNode = FindAction.pastNodes.get(FindAction.pastNodes.size() - 1);
+        FindAction.pastNodes.remove(FindAction.pastNodes.size() - 1);
+        if (!FindAction.pastNodes.contains(currentNode)) {
+            StoreGraph.getGraph().getNode(currentNode).removeAttribute("ui.class");
+            StoreGraph.getGraph().getNode(currentNode).removeAttribute("marked");
+        }
+        String lastNode = FindAction.pastNodes.get(FindAction.pastNodes.size() - 1);
+
+        StoreGraph.getGraph().getEdge(lastNode + " " + currentNode).removeAttribute("ui.class");
+        ;
+        FindAction.pastNodes.remove(FindAction.pastNodes.size() - 1);
+        FindAction.findNext(lastNode);
+        String contents = App.showWaysPath.getText();
+        String[] lines = contents.split("\\r?\\n");
+        contents = "";
+        for (int i = 0; i < lines.length - 1; i++) {
+            contents = contents + lines[i] + "\n";
+        }
+        App.showWaysPath.setText(contents);
+    }
+
 }
