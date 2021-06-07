@@ -54,7 +54,7 @@ public class VerticalToolbar extends JToolBar {
         gbc.gridy = 1;
         add(dNodeText, gbc);
 
-        gbc.weighty = 0.4;
+        gbc.weighty = 0.8;
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
@@ -66,7 +66,7 @@ public class VerticalToolbar extends JToolBar {
         // gbc.gridwidth = 2;
         resetButton.addActionListener(menulistener);
         add(resetButton, gbc);
-        
+
     }
 
     public static void deleteText() {

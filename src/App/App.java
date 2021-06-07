@@ -2,7 +2,9 @@ package App;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.text.DefaultCaret;
 
 import org.graphstream.graph.Graph;
 import org.graphstream.ui.view.Viewer;
@@ -59,19 +61,24 @@ public class App implements ViewerListener {
         mainpanel.setBorder(
                 javax.swing.BorderFactory.createTitledBorder(null, "Graph", javax.swing.border.TitledBorder.CENTER,
                         javax.swing.border.TitledBorder.TOP, new java.awt.Font("Times New Roman", 1, 14)));
-
+        JScrollPane scroll = new JScrollPane(showWaysPath, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         waysPath.setBorder(
                 javax.swing.BorderFactory.createTitledBorder(null, "Ways", javax.swing.border.TitledBorder.CENTER,
                         javax.swing.border.TitledBorder.TOP, new java.awt.Font("Times New Roman", 1, 14)));
         waysPath.setPreferredSize(new java.awt.Dimension(0, 155));
         waysPath.setLayout(new BorderLayout());
-        waysPath.add(showWaysPath, BorderLayout.CENTER);
-        showWaysPath.setColumns(65);
-        showWaysPath.setRows(7);
-        showWaysPath.setMargin(new Insets(50, 2, 2, 2));
+        waysPath.add(scroll, BorderLayout.CENTER);
+        showWaysPath.setColumns(0);
+        showWaysPath.setRows(0);
+        showWaysPath.setMargin(new Insets(2, 2, 2, 2));
         showWaysPath.setFont(new java.awt.Font("Times New Roman", 0, 14));
+        showWaysPath.setLineWrap(true);
+        DefaultCaret caret = (DefaultCaret) showWaysPath.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         // waysPath.setViewportView(showWaysPath);
         // showWaysPath.setPreferredSize(new java.awt.Dimension(0, 155));
+
         body.add(waysPath, BorderLayout.SOUTH);
 
         if (viewPanel != null)
@@ -116,8 +123,9 @@ public class App implements ViewerListener {
     public void buttonReleased(String id) {
         if (MouseInfo.getPointerInfo().getLocation().equals(mouseLocation))
             if (StoreGraph.getGraph().getNode(id).getAttribute("ui.class") != null)
-                if (StoreGraph.getGraph().getNode(id).getAttribute("ui.class").toString().equals("dekiru"))
-                    FindAction.findNext(id);
+                if (StoreGraph.getGraph().getNode(id).getAttribute("ui.class").toString().equals("dekiru")) {
+                    showWaysPath.append(FindAction.findNext(id) + "\n");
+                }
     }
 
     public void mouseOver(String id) {

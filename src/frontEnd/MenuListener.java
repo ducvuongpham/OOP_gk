@@ -14,6 +14,7 @@ import org.graphstream.graph.Node;
 import App.App;
 import backEnd.FindAction;
 import backEnd.FindAllPath;
+import backEnd.FindPossible;
 import backEnd.StoreGraph;
 
 class MenuListener implements ActionListener {
@@ -76,7 +77,10 @@ class MenuListener implements ActionListener {
             case "run":
                 run();
                 break;
-                case "reset":
+            case "Undo":
+                // undo();
+                break;
+            case "reset":
                 reset();
                 break;
         }
@@ -165,21 +169,28 @@ class MenuListener implements ActionListener {
                         source = node.getId();
                 }
             }
-            FindAllPath.printAllPaths(source, destination);
-
             FindAction.stopFind();
-            FindAction.isFinding = true;
-            FindAction.findNext(source);
-            // System.out.println(FindAction.PathLists.toString());
-            // App app = new App();
-            App.showWaysPath.setText(FindAction.PathLists.toString());
             FindAction.setDestination(destination);
+
+            if (StoreGraph.getGraph().getEdgeCount() < 40 && StoreGraph.getGraph().getEdgeCount() < 50) {
+                FindAllPath.printAllPaths(source, destination);
+                App.showWaysPath.setText("All paths from " + source + " to " + destination + ":\n"
+                        + FindAction.PathLists.toString() + "\n\nRoute:\n");
+            } else {
+                FindPossible.printPossible(StoreGraph.getGraph().getNode(destination));
+                App.showWaysPath.setText("Cannot show all paths, navigating..." + "\n\nRoute:\n");
+            }
+
+            FindAction.isFinding = true;
+            App.showWaysPath.append(FindAction.findNext(source) + "\n");
+
         } catch (Exception e) {
             // showMessageDialog.showMessage("Node not found");
             VerticalToolbar.deleteText();
         }
 
     }
+
     private void reset() {
         FindAction.stopFind();
         VerticalToolbar.sNodeText.setText("");
