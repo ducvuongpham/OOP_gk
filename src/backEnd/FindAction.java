@@ -43,10 +43,6 @@ public class FindAction {
                     .setAttribute("ui.class", "marked");
         }
 
-        if (currentNode.equals(destination)) {
-            return currentNode + "   DONE!!";
-        }
-
         for (Node n : StoreGraph.getAdjacency(StoreGraph.getGraph().getNode(currentNode))) {// node 2 chieu cung co the
                                                                                             // dekiru
             if (StoreGraph.getAdjacency(n).contains(StoreGraph.MainGraph.getNode(currentNode))) {
@@ -75,6 +71,10 @@ public class FindAction {
         // }
         // }
         pastNodes.add(currentNode);
+        if (currentNode.equals(destination)) {
+            return currentNode + "   DONE!!";
+        }
+
         return currentNode;
     }
 
